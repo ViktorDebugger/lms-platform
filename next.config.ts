@@ -2,18 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "utfs.io",
-      },
-    ],
+    domains: ["utfs.io"],
   },
   productionBrowserSourceMaps: false,
   turbopack: {},
-  experimental: {
-    serverComponentsExternalPackages: ["@clerk/nextjs"],
-  },
 };
 
 export default nextConfig;
