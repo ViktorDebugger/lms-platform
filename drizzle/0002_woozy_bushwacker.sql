@@ -1,0 +1,1 @@
+CREATE INDEX "courses_title_fulltext_idx" ON "courses" USING gin (to_tsvector('english', "title"));
