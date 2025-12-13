@@ -14,7 +14,7 @@
     "postinstall": "drizzle-kit generate"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.36.1",
+    "@clerk/nextjs": "^6.36.2",
     "@hello-pangea/dnd": "^18.0.1",
     "@hookform/resolvers": "^5.2.2",
     "@mux/mux-node": "^12.8.1",
