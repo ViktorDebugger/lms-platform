@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
@@ -9,6 +10,11 @@ import { getCourses } from "@/actions/get-courses";
 import { CoursesList } from "@/components/courses-list";
 
 import { Categories } from "./_components/categories";
+
+export const metadata: Metadata = {
+  title: "Пошук курсів | Edutrack",
+  description: "Знайдіть курси за категоріями та назвами",
+};
 
 interface SearchPageProps {
   searchParams: Promise<{

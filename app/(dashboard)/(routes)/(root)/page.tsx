@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import {
@@ -16,6 +17,11 @@ import { Badge } from "@/components/ui/badge";
 
 import { InfoCard } from "./_components/info-card";
 import { BannerCard } from "./_components/banner-card";
+
+export const metadata: Metadata = {
+  title: "Панель керування | Edutrack",
+  description: "Перегляньте ваш прогрес та продовжуйте навчання",
+};
 
 export default async function Dashboard() {
   const { userId } = await auth();

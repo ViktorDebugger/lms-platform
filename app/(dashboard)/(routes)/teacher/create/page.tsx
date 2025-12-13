@@ -5,6 +5,7 @@ import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 import {
   Form,
@@ -43,6 +44,10 @@ const CreatePage = () => {
   });
 
   const { isSubmitting, isValid } = form.formState;
+
+  useEffect(() => {
+    document.title = "Створення курсу | Edutrack";
+  }, []);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { db } from "@/lib/db";
 import { courses, categories, attachments, chapters } from "@/db/schema";
 import { eq, asc, desc, and } from "drizzle-orm";
@@ -21,11 +22,37 @@ import { ChaptersList } from "./_components/chapters-list";
 import { Banner } from "@/components/banner";
 import { CourseActions } from "./_components/course-actions";
 
-const CourseIdPage = async ({
-  params,
-}: {
+interface CourseIdPageProps {
   params: Promise<{ courseId: string }>;
-}) => {
+}
+
+export async function generateMetadata({
+  params,
+}: CourseIdPageProps): Promise<Metadata> {
+  const { courseId } = await params;
+  const { userId } = await auth();
+
+  if (!userId) {
+    return {
+      title: "Налаштування курсу | Edutrack",
+    };
+  }
+
+  const [course] = await db
+    .select()
+    .from(courses)
+    .where(and(eq(courses.id, courseId), eq(courses.userId, userId)))
+    .limit(1);
+
+  return {
+    title: course?.title
+      ? `${course.title} | Налаштування | Edutrack`
+      : "Налаштування курсу | Edutrack",
+    description: course?.description || "Налаштуйте ваш курс",
+  };
+}
+
+const CourseIdPage = async ({ params }: CourseIdPageProps) => {
   const { userId } = await auth();
 
   if (!userId) {

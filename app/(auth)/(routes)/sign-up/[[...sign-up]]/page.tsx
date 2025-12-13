@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import { SignUp } from "@clerk/nextjs";
+
+export const metadata: Metadata = {
+  title: "Реєстрація | Edutrack",
+  description: "Створіть новий акаунт Edutrack",
+};
 
 export default function SignUpPage() {
   return (

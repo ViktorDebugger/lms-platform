@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { DataTable } from "./_components/data-table";
@@ -7,6 +8,11 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { courses } from "@/db/schema";
 import { eq, desc } from "drizzle-orm";
+
+export const metadata: Metadata = {
+  title: "Мої курси | Edutrack",
+  description: "Керуйте своїми курсами",
+};
 
 const CoursesPage = async () => {
   const session = await auth();

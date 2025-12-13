@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { File, BookOpen, Tag } from "lucide-react";
@@ -10,11 +11,49 @@ import { VideoPlayer } from "./_components/video-player";
 import { CourseEnrollButton } from "./_components/course-enroll-button";
 import { CourseProgressButton } from "./_components/course-progress-button";
 
-const ChapterIdPage = async ({
-  params,
-}: {
+interface ChapterIdPageProps {
   params: Promise<{ courseId: string; chapterId: string }>;
-}) => {
+}
+
+export async function generateMetadata({
+  params,
+}: ChapterIdPageProps): Promise<Metadata> {
+  const { courseId, chapterId } = await params;
+
+  try {
+    const { db } = await import("@/lib/db");
+    const { courses, chapters } = await import("@/db/schema");
+    const { eq, and } = await import("drizzle-orm");
+
+    const [course] = await db
+      .select({ title: courses.title })
+      .from(courses)
+      .where(and(eq(courses.id, courseId), eq(courses.isPublished, true)))
+      .limit(1);
+
+    const [chapter] = await db
+      .select({ title: chapters.title, description: chapters.description })
+      .from(chapters)
+      .where(and(eq(chapters.id, chapterId), eq(chapters.isPublished, true)))
+      .limit(1);
+
+    if (chapter && course) {
+      return {
+        title: `${chapter.title} | ${course.title} | Edutrack`,
+        description: chapter.description || "Перегляньте розділ курсу",
+      };
+    }
+  } catch {
+    // Fall through to default metadata
+  }
+
+  return {
+    title: "Розділ курсу | Edutrack",
+    description: "Перегляньте розділ курсу",
+  };
+}
+
+const ChapterIdPage = async ({ params }: ChapterIdPageProps) => {
   const { userId } = await auth();
   const { courseId, chapterId } = await params;
 

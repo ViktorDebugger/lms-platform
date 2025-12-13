@@ -1,9 +1,15 @@
+import type { Metadata } from "next";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 import { getAnalytics } from "@/actions/get-analytics";
 import { DataCard } from "./_components/data-card";
 import { Chart } from "./_components/chart";
+
+export const metadata: Metadata = {
+  title: "Аналітика | Edutrack",
+  description: "Перегляньте статистику ваших курсів",
+};
 
 const AnalyticsPage = async () => {
   const { userId } = await auth();

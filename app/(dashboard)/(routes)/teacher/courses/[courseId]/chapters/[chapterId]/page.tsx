@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
@@ -13,11 +14,44 @@ import { ChapterVideoForm } from "./_components/chapter-video-form";
 import { Banner } from "@/components/banner";
 import { ChapterActions } from "./_components/chapter-actions";
 
-const ChapterIdPage = async ({
-  params,
-}: {
+interface ChapterIdPageProps {
   params: Promise<{ courseId: string; chapterId: string }>;
-}) => {
+}
+
+export async function generateMetadata({
+  params,
+}: ChapterIdPageProps): Promise<Metadata> {
+  const { courseId, chapterId } = await params;
+  const { userId } = await auth();
+
+  if (!userId) {
+    return {
+      title: "Налаштування розділу | Edutrack",
+    };
+  }
+
+  const [course] = await db
+    .select()
+    .from(courses)
+    .where(and(eq(courses.id, courseId), eq(courses.userId, userId)))
+    .limit(1);
+
+  const [chapter] = await db
+    .select()
+    .from(chapters)
+    .where(and(eq(chapters.id, chapterId), eq(chapters.courseId, courseId)))
+    .limit(1);
+
+  return {
+    title: chapter?.title
+      ? `${chapter.title} | Налаштування | Edutrack`
+      : "Налаштування розділу | Edutrack",
+    description:
+      chapter?.description || `Налаштуйте розділ курсу ${course?.title || ""}`,
+  };
+}
+
+const ChapterIdPage = async ({ params }: ChapterIdPageProps) => {
   const { userId } = await auth();
 
   if (!userId) {
