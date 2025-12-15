@@ -18,7 +18,6 @@ import { CategoryForm } from "./_components/category-form";
 import { PriceForm } from "./_components/price-form";
 import { AttachmentForm } from "./_components/attachment-form";
 import { ChaptersForm } from "./_components/chapters-form";
-import { ChaptersList } from "./_components/chapters-list";
 import { Banner } from "@/components/banner";
 import { CourseActions } from "./_components/course-actions";
 
