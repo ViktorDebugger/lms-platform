@@ -3,6 +3,8 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 
+export const dynamic = "force-dynamic";
+
 const TeacherLayout = async ({ children }: { children: ReactNode }) => {
   const { userId } = await auth();
 

@@ -15,6 +15,8 @@ interface ChapterIdPageProps {
   params: Promise<{ courseId: string; chapterId: string }>;
 }
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({
   params,
 }: ChapterIdPageProps): Promise<Metadata> {

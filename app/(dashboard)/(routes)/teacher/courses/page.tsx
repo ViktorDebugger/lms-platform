@@ -14,6 +14,8 @@ export const metadata: Metadata = {
   description: "Керуйте своїми курсами",
 };
 
+export const dynamic = "force-dynamic";
+
 const CoursesPage = async () => {
   const session = await auth();
   const userId = session?.userId;

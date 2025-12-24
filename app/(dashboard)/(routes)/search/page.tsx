@@ -16,6 +16,8 @@ export const metadata: Metadata = {
   description: "Знайдіть курси за категоріями та назвами",
 };
 
+export const dynamic = "force-dynamic";
+
 interface SearchPageProps {
   searchParams: Promise<{
     title?: string;

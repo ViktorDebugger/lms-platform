@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
+import type { JSX, ReactNode } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
@@ -26,19 +26,6 @@ type RootLayoutProps = Readonly<{
   children: ReactNode;
 }>;
 
-/**
- * Top-level layout that wires up fonts, global providers, and shared chrome.
- *
- * @param {RootLayoutProps} props - Layout props.
- * @param {ReactNode} props.children - Page content to render.
- * @returns {JSX.Element} The rendered root layout.
- * @example
- * ```tsx
- * <RootLayout>
- *   <main>Content</main>
- * </RootLayout>
- * ```
- */
 const RootLayout = ({ children }: RootLayoutProps): JSX.Element => {
   return (
     <ClerkProvider>

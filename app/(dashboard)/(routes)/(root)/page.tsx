@@ -23,6 +23,8 @@ export const metadata: Metadata = {
   description: "Перегляньте ваш прогрес та продовжуйте навчання",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function Dashboard() {
   const { userId } = await auth();
 

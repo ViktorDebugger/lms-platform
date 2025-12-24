@@ -11,6 +11,8 @@ import { CourseSidebar } from "./_components/course-sidebar";
 import { CourseNavbar } from "./_components/course-navbar";
 import getSafeProfile from "@/actions/get-safe-profile";
 
+export const dynamic = "force-dynamic";
+
 const CourseLayout = async ({
   children,
   params,

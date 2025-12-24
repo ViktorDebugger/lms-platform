@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   description: "Перегляньте статистику ваших курсів",
 };
 
+export const dynamic = "force-dynamic";
+
 const AnalyticsPage = async () => {
   const { userId } = await auth();
   if (!userId) {

@@ -2,6 +2,8 @@ import { ReactNode } from "react";
 import { Navbar } from "./_components/navbar";
 import { getProfile } from "@/lib/get-profile";
 
+export const dynamic = "force-dynamic";
+
 const DashboardLayout = async ({ children }: { children: ReactNode }) => {
   const currentProfile = await getProfile();
 
